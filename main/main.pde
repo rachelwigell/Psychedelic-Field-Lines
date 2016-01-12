@@ -37,7 +37,7 @@ void mouseClicked(){
   clickText = "";
   int x = mouseX;
   int y = mouseY;
-  setRandomNiceColor();
+  setRandomBrightColor();
   fieldCharge = charges[x][y];
   spread(x, y);
 }
@@ -46,6 +46,12 @@ public void setRandomColor(){
   r = int(random(10, 255));
   g = int(random(10, 255));
   b = int(random(10, 255));
+}
+
+public void setRandomBrightColor(){
+  r = int(random(100, 255));
+  g = int(random(100, 255));
+  b = int(random(100, 255));
 }
 
 public void setCoordinateBasedColor(int x, int y){
