@@ -21,6 +21,7 @@ void setup(){
   updateChargeArray();
   background(0);
   textFont(createFont("Helvetica", 32));
+  $("#load-text").hide();
   //renderMetaballs();
 }
 

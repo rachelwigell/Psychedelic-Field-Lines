@@ -3,6 +3,7 @@
 	<link rel="stylesheet" href="libraries/foundation-5.5.2/css/foundation.css">
 	<link rel="stylesheet" href="libraries/foundation-5.5.2/css/normalize.css">
 	<script src="libraries/processing.js"></script>
+	<script src="libraries/jquery-1.11.3.min.js"></script>
 	<style>
 		p {
 			font-size: small
@@ -21,6 +22,7 @@
 	}(document, 'script', 'facebook-jssdk'));</script>
 
 	<center>
+		<p id="load-text">loading...</p>
 		<canvas id="processing" data-processing-sources="
 		main/main.pde
 		main/MetaballsClass.pde
