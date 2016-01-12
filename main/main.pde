@@ -123,20 +123,15 @@ public void setRandomNiceColor(){
 }
 
 public void spread(int x, int y){
-  if(!(charges[x][y] == fieldCharge)){
-    return;
+  try{
+    set(x, y, color(r,g,b));
+    if(x > 0 && get(x-1, y) != color(r,g,b) && charges[x-1][y] == fieldCharge) spread(x-1, y);
+    if(x+1 < fieldX && get(x+1, y) != color(r,g,b) && charges[x+1][y] == fieldCharge) spread(x+1, y);
+    if(y > 0 && get(x, y-1) != color(r,g,b) && charges[x][y-1] == fieldCharge) spread(x, y-1);
+    if(y+1 < fieldY && get(x, y+1) != color(r,g,b) && charges[x][y+1] == fieldCharge) spread(x, y+1);
   }
-  else{
-    try{
-      set(x, y, color(r,g,b));
-      if(get(x-1, y) != color(r,g,b) && x > 0) spread(x-1, y);
-      if(get(x+1, y) != color(r,g,b) && x+1 < fieldX) spread(x+1, y);
-      if(get(x, y-1) != color(r,g,b) && y > 0) spread(x, y-1);
-      if(get(x, y+1) != color(r,g,b) && y+1 < fieldY) spread(x, y+1);
-    }
-    catch(StackOverflowError e){
-      return;
-    }
+  catch(StackOverflowError e){
+    return;
   }
 }
 
