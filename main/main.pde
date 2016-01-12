@@ -10,7 +10,7 @@ int g = 0;
 int b = 0;
 float fieldCharge = 0;
 String clickText = "click.";
-int spacing = 3;
+int spacing = 5;
 
 void setup(){
   size(900, 600, P2D);
@@ -22,7 +22,7 @@ void setup(){
   updateChargeArray();
   background(0);
   textFont(createFont("Helvetica", 32));
-  //$("#load-text").hide();
+  $("#load-text").hide();
   //renderMetaballs();
 }
 
