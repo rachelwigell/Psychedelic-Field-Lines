@@ -10,7 +10,6 @@ int g = 0;
 int b = 0;
 float fieldCharge = 0;
 String clickText = "click.";
-int spacing = 1;
 
 void setup(){
   size(900, 600, P2D);
@@ -22,7 +21,7 @@ void setup(){
   updateChargeArray();
   background(0);
   textFont(createFont("Helvetica", 32));
-  //$("#load-text").hide();
+  $("#load-text").hide();
   //renderMetaballs();
 }
 
@@ -132,10 +131,10 @@ public void setRandomNiceColor(){
 public void spread(int x, int y){
   try{
     set(x, y, color(r,g,b));
-    if(x-spacing >= 0 && get(x-spacing, y) != color(r,g,b) && charges[x-spacing][y] == fieldCharge) spread(x-spacing, y);
-    if(x+spacing < fieldX && get(x+spacing, y) != color(r,g,b) && charges[x+spacing][y] == fieldCharge) spread(x+spacing, y);
-    if(y-spacing >= 0 && get(x, y-spacing) != color(r,g,b) && charges[x][y-spacing] == fieldCharge) spread(x, y-spacing);
-    if(y+spacing < fieldY && get(x, y+spacing) != color(r,g,b) && charges[x][y+spacing] == fieldCharge) spread(x, y+spacing);
+    if(x-1 >= 0 && get(x-1, y) != color(r,g,b) && charges[x-1][y] == fieldCharge) spread(x-1, y);
+    if(x+1 < fieldX && get(x+1, y) != color(r,g,b) && charges[x+1][y] == fieldCharge) spread(x+1, y);
+    if(y-1 >= 0 && get(x, y-1) != color(r,g,b) && charges[x][y-1] == fieldCharge) spread(x, y-1);
+    if(y+1 < fieldY && get(x, y+1) != color(r,g,b) && charges[x][y+1] == fieldCharge) spread(x, y+1);
   }
   catch(StackOverflowError e){
     return;
@@ -149,10 +148,10 @@ public void spread2(int x, int y){
     Vector2D point = (Vector2D) frontier.get(i);
     if(get(point.x, point.y) != color(r,g,b) && charges[point.x][point.y] == fieldCharge){
       set(point.x, point.y, color(r,g,b));
-      if(point.x-spacing >= 0) frontier.add(new Vector2D(point.x-spacing, point.y));
-      if(point.x+spacing < fieldX) frontier.add(new Vector2D(point.x+spacing, point.y));
-      if(point.y-spacing >= 0) frontier.add(new Vector2D(point.x, point.y-spacing));
-      if(point.y+spacing < fieldY) frontier.add(new Vector2D(point.x, point.y+spacing));
+      if(point.x-1 >= 0) frontier.add(new Vector2D(point.x-1, point.y));
+      if(point.x+1 < fieldX) frontier.add(new Vector2D(point.x+1, point.y));
+      if(point.y-1 >= 0) frontier.add(new Vector2D(point.x, point.y-1));
+      if(point.y+1 < fieldY) frontier.add(new Vector2D(point.x, point.y+1));
     }
   }
 }
