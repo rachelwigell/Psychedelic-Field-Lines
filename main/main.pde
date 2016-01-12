@@ -38,7 +38,6 @@ void mouseClicked(){
   int y = mouseY;
   setRandomNiceColor();
   fieldCharge = charges[x][y];
-  println(fieldCharge);
   spread2(x, y);
 }
 
