@@ -10,7 +10,7 @@ int g = 0;
 int b = 0;
 float fieldCharge = 0;
 String clickText = "click.";
-int spacing = 5;
+int spacing = 1;
 
 void setup(){
   size(900, 600, P2D);
@@ -22,7 +22,7 @@ void setup(){
   updateChargeArray();
   background(0);
   textFont(createFont("Helvetica", 32));
-  $("#load-text").hide();
+  //$("#load-text").hide();
   //renderMetaballs();
 }
 
@@ -37,9 +37,9 @@ void mouseClicked(){
   clickText = "";
   int x = mouseX;
   int y = mouseY;
-  setRandomBrightColor();
+  setRandomNiceColor();
   fieldCharge = charges[x][y];
-  spread(x, y);
+  spread2(x, y);
 }
 
 public void setRandomColor(){
@@ -139,6 +139,21 @@ public void spread(int x, int y){
   }
   catch(StackOverflowError e){
     return;
+  }
+}
+
+public void spread2(int x, int y){
+  ArrayList frontier = new ArrayList();
+  frontier.add(new Vector2D(x, y));
+  for(int i = 0; i < frontier.size(); i++){
+    Vector2D point = (Vector2D) frontier.get(i);
+    if(get(point.x, point.y) != color(r,g,b) && charges[point.x][point.y] == fieldCharge){
+      set(point.x, point.y, color(r,g,b));
+      if(point.x-spacing >= 0) frontier.add(new Vector2D(point.x-spacing, point.y));
+      if(point.x+spacing < fieldX) frontier.add(new Vector2D(point.x+spacing, point.y));
+      if(point.y-spacing >= 0) frontier.add(new Vector2D(point.x, point.y-spacing));
+      if(point.y+spacing < fieldY) frontier.add(new Vector2D(point.x, point.y+spacing));
+    }
   }
 }
 
