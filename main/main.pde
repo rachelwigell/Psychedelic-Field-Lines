@@ -13,7 +13,7 @@ String clickText = "click.";
 
 void setup(){
   size(900, 600, P2D);
-  frameRate(30);
+  frameRate(10);
   metaballs = new Metaball[numMetaballs];
   for(int i = 0; i < numMetaballs; i++){
     metaballs[i] = new Metaball();
@@ -21,7 +21,7 @@ void setup(){
   updateChargeArray();
   background(0);
   textFont(createFont("Helvetica", 32));
-  $("#load-text").hide();
+  //$("#load-text").hide();
   //renderMetaballs();
 }
 
@@ -123,17 +123,16 @@ public void setRandomNiceColor(){
 }
 
 public void spread(int x, int y){
-  int hereColor = get(x, y);
-  if(hereColor == color(r,g,b) || !(charges[x][y] == fieldCharge)){
+  if(!(charges[x][y] == fieldCharge)){
     return;
   }
   else{
     try{
       set(x, y, color(r,g,b));
-      if(x > 0) spread(x-1, y);
-      if(x+1 < fieldX) spread(x+1, y);
-      if(y > 0) spread(x, y-1);
-      if(y+1 < fieldY) spread(x, y+1);
+      if(get(x-1, y) != color(r,g,b) && x > 0) spread(x-1, y);
+      if(get(x+1, y) != color(r,g,b) && x+1 < fieldX) spread(x+1, y);
+      if(get(x, y-1) != color(r,g,b) && y > 0) spread(x, y-1);
+      if(get(x, y+1) != color(r,g,b) && y+1 < fieldY) spread(x, y+1);
     }
     catch(StackOverflowError e){
       return;
