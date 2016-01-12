@@ -1,9 +1,9 @@
-public final static int fieldX = 900;
-public final static int fieldY = 600;
+public final static int fieldX = 1200;
+public final static int fieldY = 700;
 
 public Metaball[] metaballs;
 float metaballThreshold = 4;
-int numMetaballs = 100;
+int numMetaballs = 150;
 float[][] charges = new float[fieldX][fieldY];
 int r = 0;
 int g = 0;
@@ -12,7 +12,7 @@ float fieldCharge = 0;
 String clickText = "click.";
 
 void setup(){
-  size(900, 600, P2D);
+  size(1200, 700, P2D);
   frameRate(10);
   metaballs = new Metaball[numMetaballs];
   for(int i = 0; i < numMetaballs; i++){
@@ -38,6 +38,7 @@ void mouseClicked(){
   int y = mouseY;
   setRandomNiceColor();
   fieldCharge = charges[x][y];
+  println(fieldCharge);
   spread2(x, y);
 }
 
@@ -172,24 +173,22 @@ public void updateChargeArray(){
       float chargeHere = netChargeHere(here);
       if(chargeHere > 100) charges[i][j] = 100;
       else if(chargeHere < -100) charges[i][j] = -100;
-      else if(chargeHere > 30) charges[i][j] = 30;
-      else if(chargeHere < -30) charges[i][j] = -30;
+      else if(chargeHere > 20) charges[i][j] = 20;
+      else if(chargeHere < -20) charges[i][j] = -20;
       else if(chargeHere > 9) charges[i][j] = 9;
       else if(chargeHere < -9) charges[i][j] = -9;
+      else if(chargeHere > 5) charges[i][j] = 5;
+      else if(chargeHere < -5) charges[i][j] = -5;
       else if(chargeHere > 5) charges[i][j] = 5;
       else if(chargeHere < -5) charges[i][j] = -5;
       else if(chargeHere > 3) charges[i][j] = 3;
       else if(chargeHere < -3) charges[i][j] = -3;
       else if(chargeHere > 2) charges[i][j] = 2;
       else if(chargeHere < -2) charges[i][j] = -2;
-      else if(chargeHere > 1.2) charges[i][j] = 1.2;
-      else if(chargeHere < -1.2) charges[i][j] = -1.2;
       else if(chargeHere > 1) charges[i][j] = 1;
       else if(chargeHere < -1) charges[i][j] = -1;
-      else if(chargeHere > .7) charges[i][j] = .7;
-      else if(chargeHere < -.7) charges[i][j] = -.7;
-      else if(chargeHere > .4) charges[i][j] = .4;
-      else if(chargeHere < -.4) charges[i][j] = -.4;
+      else if(chargeHere > .5) charges[i][j] = .5;
+      else if(chargeHere < -.5) charges[i][j] = -.5;
       else charges[i][j] = 0;
     }
   }

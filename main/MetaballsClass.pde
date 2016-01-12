@@ -16,10 +16,10 @@ public class Metaball {
     this.center = new Vector2D(int(random(0, fieldX)), int(random(0, fieldY)));
     float pos = random(-1, 1);
     if(pos > 0){
-      this.charge = random(2400, 4800);
+      this.charge = random(3200, 6400);
     }
     else{
-      this.charge = random(-4800, -2400);
+      this.charge = random(-6400, -3200);
     }
   }
   
