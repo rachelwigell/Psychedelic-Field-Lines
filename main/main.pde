@@ -10,6 +10,7 @@ int g = 0;
 int b = 0;
 float fieldCharge = 0;
 String clickText = "click.";
+int spacing = 3;
 
 void setup(){
   size(900, 600, P2D);
@@ -125,10 +126,10 @@ public void setRandomNiceColor(){
 public void spread(int x, int y){
   try{
     set(x, y, color(r,g,b));
-    if(x > 0 && get(x-1, y) != color(r,g,b) && charges[x-1][y] == fieldCharge) spread(x-1, y);
-    if(x+1 < fieldX && get(x+1, y) != color(r,g,b) && charges[x+1][y] == fieldCharge) spread(x+1, y);
-    if(y > 0 && get(x, y-1) != color(r,g,b) && charges[x][y-1] == fieldCharge) spread(x, y-1);
-    if(y+1 < fieldY && get(x, y+1) != color(r,g,b) && charges[x][y+1] == fieldCharge) spread(x, y+1);
+    if(x-spacing >= 0 && get(x-spacing, y) != color(r,g,b) && charges[x-spacing][y] == fieldCharge) spread(x-spacing, y);
+    if(x+spacing < fieldX && get(x+spacing, y) != color(r,g,b) && charges[x+spacing][y] == fieldCharge) spread(x+spacing, y);
+    if(y-spacing >= 0 && get(x, y-spacing) != color(r,g,b) && charges[x][y-spacing] == fieldCharge) spread(x, y-spacing);
+    if(y+spacing < fieldY && get(x, y+spacing) != color(r,g,b) && charges[x][y+spacing] == fieldCharge) spread(x, y+spacing);
   }
   catch(StackOverflowError e){
     return;
