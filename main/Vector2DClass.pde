@@ -1,10 +1,17 @@
 public class Vector2D {
   public int x;
   public int y;
+  int fieldCharge;
   
   public Vector2D(int x, int y){
     this.x = x;
     this.y = y;
+  }
+  
+  public Vector2D(int x, int y, int fieldCharge){
+    this.x = x;
+    this.y = y;
+    this.fieldCharge = fieldCharge;
   }
   
   public float distanceFrom(Vector2D from){
