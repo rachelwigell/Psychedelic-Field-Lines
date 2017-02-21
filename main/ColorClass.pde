@@ -1,32 +1,32 @@
 public class Color {
-  public int r;
-  public int g;
-  public int b;
+  public int hue;
+  public int sat;
+  public int bri;
   
-  public Color(int r, int g, int b){
-    this.r = r;
-    this.g = g;
-    this.b = b;
+  public Color(int hue, int sat, int bri){
+    this.hue = hue;
+    this.sat = sat;
+    this.bri = bri;
   }
   
   public Color(boolean[] highs, boolean complement){
-    if((boolean) highs[0] && !complement) this.r = int(random(170, 255));
-    else this.r = int(random(0, 130));
-    if((boolean) highs[1] && !complement) this.g = int(random(170, 255));
-    else this.g = int(random(0, 130));
-    if((boolean) highs[2] && !complement) this.b = int(random(170, 255));
-    else this.b = int(random(0, 130));
+    if((boolean) highs[0] && !complement) this.hue = int(random(170, 255));
+    else this.hue = int(random(0, 130));
+    if((boolean) highs[1] && !complement) this.sat = int(random(170, 255));
+    else this.sat = int(random(0, 130));
+    if((boolean) highs[2] && !complement) this.bri = int(random(170, 255));
+    else this.bri = int(random(0, 130));
   }
   
   public Color(Color base, int rIncrement, int gIncrement, int bIncrement, int multiplier){
-    this.r = base.r + multiplier * rIncrement;
-    this.g = base.g + multiplier * gIncrement;
-    this.b = base.b + multiplier * bIncrement;
+    this.hue = base.hue + multiplier * rIncrement;
+    this.sat = base.sat + multiplier * gIncrement;
+    this.bri = base.bri + multiplier * bIncrement;
   }
   
-  public Color(Color base, int increment, int multiplier){
-    this.r = base.r + multiplier * increment;
-    this.g = base.g;
-    this.b = base.b;
+  public Color(Color base, int increment, int multiplier, boolean differentiator){
+    this.hue = base.hue + multiplier * increment;
+    this.sat = base.sat;
+    this.bri = base.bri;
   }
 }
