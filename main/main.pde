@@ -5,7 +5,7 @@ public Metaball[] metaballs;
 float metaballThreshold = 4;
 int numMetaballs = 150;
 int[][] charges = new int[fieldX][fieldY];
-boolean[][] painted = new boolean[fieldX][fieldY];
+boolean[][] painted;
 String clickText = "click.";
 ArrayList globalFrontier;
 HashMap colorMapping = new HashMap();
@@ -20,7 +20,7 @@ void setup(){
     metaballs[i] = new Metaball();
   }
   updateChargeArray();
-  setupChargeToColorMapping();
+  setupChargeToColorMapping(true);
   background(0);
   textFont(createFont("Helvetica", 32));
   $("#load-text").hide();
@@ -99,17 +99,10 @@ public void updateChargeArray(){
   }
 }
 
-public void setupChargeToColorMapping(){
-  int firstHue = int(random(0, 360));
-  int secondHue = firstHue + int(random(120, 160));
-  if(secondHue > 360) secondHue -= 360;
-  int saturation = int(random(70, 100));
-  int brightness = int(random(70, 100));
-  Color firstColor = new Color(firstHue, saturation, brightness);
-  Color secondColor = new Color(secondHue, saturation, brightness);
-  int increment = int((secondHue - firstHue)/15);
-  int complementHue = (firstHue + increment * 8) + int(random(160, 200));
-  if(complementHue > 360) complementHue -= 360;
+public void setupChargeToColorMapping(boolean init){
+  initializeColors(init);
+  Color firstColor = new Color(firstHue, globalSatHSB, globalBriHSB);
+  Color secondColor = new Color(secondHue, globalSatHSB, globalBriHSB);
   Color complementColor = new Color(firstColor, increment, 8, true);
   complementColor.hue = complementHue;
   colorMapping.put(200, firstColor);
@@ -129,6 +122,7 @@ public void setupChargeToColorMapping(){
   colorMapping.put(-18, new Color(firstColor, increment, 14, true));
   colorMapping.put(-40, new Color(firstColor, increment, 15, true));
   colorMapping.put(-200, secondColor);
+  painted = new boolean[fieldX][fieldY];
 }
 
 public void renderMetaballs(){

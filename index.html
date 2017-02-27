@@ -8,6 +8,43 @@
 		p {
 			font-size: small
 		}
+		.switch-on {
+			position: absolute;
+			left: -95%;
+			top: 25%;
+			color: white;
+			font-weight: bold;
+			font-size: 12px;
+		}
+		.switch-off {
+			position: absolute;
+			left: -20%;
+			top: 25%;
+			color: white;
+			font-weight: bold;
+			font-size: 12px;
+		}
+		.switch.large label {
+			width: 80%;
+		}
+		.switch label {
+			background: #2BA6CB;
+		}
+		.switch.large label:after {
+			height: 80%;
+			left: 2.5%;
+			top: 10%;
+			width: 50%;
+		}
+		.switch.large input:checked + label:after {
+    		left: 47.5%;
+    	}
+    	td{
+    		width: 1px;
+    	}
+    	table tr td{
+    		padding: 0.5625rem 0px;
+    	}
 	</style>
 </head>
 <body>
@@ -24,64 +61,120 @@
 	<center>
 		<p id="load-text">loading...</p>
 		<canvas id="processing" data-processing-sources="
-		main/main.pde
-		main/MetaballsClass.pde
-		main/Vector2DClass.pde
-		main/ColorClass.pde
-		"></canvas><br><br>
-	<div class="row">
-		<div class="small-2 columns">
-			<a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="http://rachelwigell.github.io/Psychedelic-Field-Lines/" data-text="Check out this psychedelic art!">Tweet</a>
-			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-		</div>
-		<div class="small-2 columns">
-			<div class="fb-share-button" data-href="http://rachelwigell.github.io/Psychedelic-Field-Lines/" data-layout="button"></div>
-		</div>
-		<div class="small-2 columns">
-			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-				<input type="hidden" name="cmd" value="_s-xclick">
-				<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
-				">
-				<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-				<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-			</form>
-		</div>
-		<div class="small-2 columns">
-			<a target="_blank"
-			   href="http://venmo.com/?txn=pay&share=public&recipients=rachelwigell@alum.wpi.edu&amount=5.00&note=Psychedelic%20Field%20Lines!%20http://rachelwigell.github.io/Psychedelic-Field-Lines/">
-			   Donate with Venmo
-			</a>
-		</div>
-		<div class="small-2 columns">
-			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<!-- Field Lines Bottom -->
-			<ins class="adsbygoogle"
-			     style="display:inline-block;width:320px;height:100px"
-			     data-ad-client="ca-pub-4926371143211898"
-			     data-ad-slot="6606089169"></ins>
-			<script>
-			(adsbygoogle = window.adsbygoogle || []).push({});
-			</script>
-		</div>
-		<div>
-			<script>
-			  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			main/main.pde
+			main/MetaballsClass.pde
+			main/Vector2DClass.pde
+			main/ColorClass.pde">
+		</canvas><br><br>
 
-			  ga('create', 'UA-71163706-3', 'auto');
-			  ga('send', 'pageview');
-
-			</script>
+		<div class="row">
+			<div class="small-4 columns" id="grad1_display">First gradient color</div>
+			<div class="small-4 columns" id="grad1_picker"></div>
+			<div class="small-4 columns" id="grad_preview"></div>
 		</div>
-	</div>
-	<div class="row">
-		<p>
-			More: <a href="http://rachelwigell.github.io/AquiSim/">AquiSim</a> | <a href="http://rachelwigell.github.io/Mathematical-Sunset/">Mathematical Sunset</a> | <a href="http://rachelwigell.github.io/Metaballs/">Metaballs</a> | <a href="http://rachelwigell.github.io/Synesthesia/">Synesthesia</a>
-		</p>
-	</div>
+		<div class="row">
+			<div class="small-4 columns" id="grad2_display" style="background-color:rgb(200,100,50)">Second gradient color</div>
+			<div class="small-4 columns" id="grad2_picker"></div>
+			<div class="small-4 columns"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="small-4 columns" id="comp_display">Complement color</div>
+			<div class="small-4 columns" id="comp_picker">
 
-</center>
-<script src="colorAPIcallout.js"></script>
+			</div>
+			<div class="small-4 columns">
+				<div class="switch round large">
+					<input id="comp_inclusion" type="checkbox">
+					<label for="comp_inclusion">
+						<span class="switch-off">OFF</span>
+						<span class="switch-on">ON</span>
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="small-4 columns">Saturation</div>
+			<div class="small-4 columns" id="sat_slider">
+				<div class="range-slider round" id="sat_percentage" align="left" data-slider=50>
+					  <span class="range-slider-handle" role="slider" tabindex="0">
+					  </span>
+					  <span class="range-slider-active-segment"></span>
+					  <input type="hidden">
+				</div>
+			</div>
+			<div class="small-4 columns"></div>
+		</div>
+		<div class="row">
+			<div class="small-4 columns">Brightness</div>
+			<div class="small-4 columns" id="bri_slider">
+				<div class="range-slider round" id="bri_percentage" align="left" data-slider=50>
+					  <span class="range-slider-handle" role="slider" tabindex="0">
+					  </span>
+					  <span class="range-slider-active-segment"></span>
+					  <input type="hidden">
+				</div>
+			</div>
+			<div class="small-4 columns"></div>
+		</div>
+
+		<div class="row">
+			<div class="small-2 columns">
+				<a href="https://twitter.com/share" class="twitter-share-button"{count} data-url="http://rachelwigell.github.io/Psychedelic-Field-Lines/" data-text="Check out this psychedelic art!">Tweet</a>
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+			</div>
+			<div class="small-2 columns">
+				<div class="fb-share-button" data-href="http://rachelwigell.github.io/Psychedelic-Field-Lines/" data-layout="button"></div>
+			</div>
+			<div class="small-2 columns">
+				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+					<input type="hidden" name="cmd" value="_s-xclick">
+					<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+					">
+					<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+					<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+				</form>
+			</div>
+			<div class="small-2 columns">
+				<a target="_blank"
+				   href="http://venmo.com/?txn=pay&share=public&recipients=rachelwigell@alum.wpi.edu&amount=5.00&note=Psychedelic%20Field%20Lines!%20http://rachelwigell.github.io/Psychedelic-Field-Lines/">
+				   Donate with Venmo
+				</a>
+			</div>
+			<div class="small-2 columns">
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- Field Lines Bottom -->
+				<ins class="adsbygoogle"
+				     style="display:inline-block;width:320px;height:100px"
+				     data-ad-client="ca-pub-4926371143211898"
+				     data-ad-slot="6606089169"></ins>
+				<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
+			</div>
+			<div>
+				<script>
+				  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+				  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+				  ga('create', 'UA-71163706-3', 'auto');
+				  ga('send', 'pageview');
+
+				</script>
+			</div>
+		</div>
+		<div class="row">
+			<p>
+				More: <a href="http://rachelwigell.github.io/AquiSim/">AquiSim</a> | <a href="http://rachelwigell.github.io/Mathematical-Sunset/">Mathematical Sunset</a> | <a href="http://rachelwigell.github.io/Metaballs/">Metaballs</a> | <a href="http://rachelwigell.github.io/Synesthesia/">Synesthesia</a>
+			</p>
+		</div>
+	</center>
+
+	<script src="libraries/foundation-5.5.2/js/foundation.min.js"></script>
+	<script>
+    	$(document).foundation();
+  	</script>
+  	<script src="js/processingHtmlInteraction.js"></script>
 </body>
