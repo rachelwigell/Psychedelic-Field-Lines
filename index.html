@@ -68,22 +68,66 @@
 		</canvas><br><br>
 
 		<div class="row">
-			<div class="small-4 columns" id="grad1_display">First gradient color</div>
-			<div class="small-4 columns" id="grad1_picker"></div>
-			<div class="small-4 columns" id="grad_preview"></div>
-		</div>
-		<div class="row">
-			<div class="small-4 columns" id="grad2_display" style="background-color:rgb(200,100,50)">Second gradient color</div>
-			<div class="small-4 columns" id="grad2_picker"></div>
-			<div class="small-4 columns"></div>
+			<div class="small-3 columns" id="grad1_display">First gradient color</div>
+			<div class="small-5 columns" id="grad1_picker"></div>
+			<div class="small-2 columns" id="grad1_sat_slider">
+				<div class="range-slider round" id="grad1_sat_percentage" align="left" data-slider=50>
+					  <span class="range-slider-handle" role="slider" tabindex="0">
+					  </span>
+					  <span class="range-slider-active-segment"></span>
+					  <input type="hidden">
+				</div>
+			</div>
+			<div class="small-2 columns" id="grad1_lum_slider">
+				<div class="range-slider round" id="grad1_lum_percentage" align="left" data-slider=50>
+					  <span class="range-slider-handle" role="slider" tabindex="0">
+					  </span>
+					  <span class="range-slider-active-segment"></span>
+					  <input type="hidden">
+				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="small-4 columns" id="comp_display">Complement color</div>
-			<div class="small-4 columns" id="comp_picker">
-
+			<div class="small-3 columns" id="grad2_display" style="background-color:rgb(200,100,50)">Second gradient color</div>
+			<div class="small-5 columns" id="grad2_picker"></div>
+			<div class="small-2 columns" id="grad2_sat_slider">
+				<div class="range-slider round" id="grad2_sat_percentage" align="left" data-slider=50>
+					  <span class="range-slider-handle" role="slider" tabindex="0">
+					  </span>
+					  <span class="range-slider-active-segment"></span>
+					  <input type="hidden">
+				</div>
 			</div>
-			<div class="small-4 columns">
+			<div class="small-2 columns" id="grad2_lum_slider">
+				<div class="range-slider round" id="grad2_lum_percentage" align="left" data-slider=50>
+					  <span class="range-slider-handle" role="slider" tabindex="0">
+					  </span>
+					  <span class="range-slider-active-segment"></span>
+					  <input type="hidden">
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="small-3 columns" id="comp_display">Complement color</div>
+			<div class="small-5 columns" id="comp_picker"></div>
+			<div class="small-2 columns" id="comp_sat_slider">
+				<div class="range-slider round" id="comp_sat_percentage" align="left" data-slider=50>
+					  <span class="range-slider-handle" role="slider" tabindex="0">
+					  </span>
+					  <span class="range-slider-active-segment"></span>
+					  <input type="hidden">
+				</div>
+			</div>
+			<div class="small-2 columns" id="comp_lum_slider">
+				<div class="range-slider round" id="comp_lum_percentage" align="left" data-slider=50>
+					  <span class="range-slider-handle" role="slider" tabindex="0">
+					  </span>
+					  <span class="range-slider-active-segment"></span>
+					  <input type="hidden">
+				</div>
+			</div>
+			<!-- <div class="small-4 columns">
 				<div class="switch round large">
 					<input id="comp_inclusion" type="checkbox">
 					<label for="comp_inclusion">
@@ -91,31 +135,10 @@
 						<span class="switch-on">ON</span>
 					</label>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="row">
-			<div class="small-4 columns">Saturation</div>
-			<div class="small-4 columns" id="sat_slider">
-				<div class="range-slider round" id="sat_percentage" align="left" data-slider=50>
-					  <span class="range-slider-handle" role="slider" tabindex="0">
-					  </span>
-					  <span class="range-slider-active-segment"></span>
-					  <input type="hidden">
-				</div>
-			</div>
-			<div class="small-4 columns"></div>
-		</div>
-		<div class="row">
-			<div class="small-4 columns">Brightness</div>
-			<div class="small-4 columns" id="bri_slider">
-				<div class="range-slider round" id="bri_percentage" align="left" data-slider=50>
-					  <span class="range-slider-handle" role="slider" tabindex="0">
-					  </span>
-					  <span class="range-slider-active-segment"></span>
-					  <input type="hidden">
-				</div>
-			</div>
-			<div class="small-4 columns"></div>
+			<div class="small-12 columns" id="grad_preview"></div>
 		</div>
 
 		<div class="row">

@@ -1,11 +1,21 @@
 var firstHue;
 var secondHue;
-var globalSatHSB;
-var globalBriHSB;
-var globalSatHSL;
-var globalLumHSL;
-var complement;
-var increment;
+var compHue;
+var firstSatHSB;
+var firstBriHSB;
+var firstSatHSL;
+var firstLumHSL;
+var secondSatHSB;
+var secondBriHSB;
+var secondSatHSL;
+var secondLumHSL;
+var compSatHSB;
+var compBriHSB;
+var compSatHSL;
+var compLumHSL;
+var hueInc;
+var satInc;
+var briInc;
 var direction = 1;
 var includeComplement = true;
 
@@ -45,59 +55,69 @@ function initializeColors(init){
 	if(init){
 		firstHue = getRandomInt(0, 360);
 		secondHue = makeValidHue(firstHue + getRandomInt(120, 160));
-		globalSatHSL = getRandomInt(70, 100);
-		globalLumHSL = getRandomInt(40, 60);
-		var HSL = SLtoSB(globalSatHSL, globalLumHSL);
-		globalSatHSB = HSL[0]
-		globalBriHSB = HSL[1];
+		firstSatHSL = getRandomInt(70, 100);
+		firstLumHSL = getRandomInt(40, 60);
+		secondSatHSL = firstSatHSL;
+		secondLumHSL = firstLumHSL;
+		compSatHSL = firstSatHSL;
+		compLumHSL = firstLumHSL;
+		var HSB = SLtoSB(firstSatHSL, firstLumHSL);
+		firstSatHSB = HSB[0];
+		firstBriHSB = HSB[1];
+		secondSatHSB = firstSatHSB;
+		secondBriHSB = firstBriHSB;
+		compSatHSB = firstSatHSB;
+		compBriHSB = firstBriHSB;
 	}
-	if(firstHue > secondHue){
-		increment = Math.ceil(((360 - firstHue) + (secondHue))/15);
-	}
-	else if(secondHue > firstHue) increment = Math.ceil((secondHue - firstHue)/15);
-	else increment = 0;
+	if(firstHue > secondHue) hueInc = Math.ceil(((360 - firstHue) + (secondHue))/15);
+	else hueInc = Math.ceil((secondHue - firstHue)/15);
+	satInc = Math.ceil((secondSatHSB - firstSatHSB)/15);
+	briInc = Math.ceil((secondBriHSB - firstBriHSB)/15);
 	if(init){
-		complementHue = makeValidHue((firstHue + increment * 8) + getRandomInt(160, 200));
+		compHue = makeValidHue((firstHue + hueInc * 8) + getRandomInt(160, 200));
+		compSatHSL = Math.ceil((firstSatHSL + secondSatHSL)/2);
+		compLumHSL = Math.ceil((firstLumHSL + secondLumHSL)/2);
+		var compHSB = SLtoSB(compSatHSL, compLumHSL);
+		compSatHSB = compHSB[0];
+		compBriHSB = compHSB[1];
 	}
-  	initPicker('grad1_picker', 'grad1_display', firstHue);
-  	initPicker('grad2_picker', 'grad2_display', secondHue);
-  	initPicker('comp_picker', 'comp_display', complementHue);
+  	initPicker('grad1_picker', 'grad1_display', firstHue, firstSatHSL, firstLumHSL);
+  	initPicker('grad2_picker', 'grad2_display', secondHue, secondSatHSL, secondLumHSL);
+  	initPicker('comp_picker', 'comp_display', compHue, compSatHSL, compLumHSL);
   	initPreview('grad_preview');
 }
 
-function initPicker(pickerId, displayId, hue){
+function initPicker(pickerId, displayId, hue, sat, lum){
 	var table = document.createElement("table");
 	var row = document.createElement("tr");
 	for(var i = 0; i < 360; i++){
 		var td = document.createElement("td");
-		td.setAttribute('index', i);
-		var display = globalLumHSL;
+		td.setAttribute('hue', i);
+		var display = lum;
 		if(i == hue) display = 0;
-		td.setAttribute('style', 'background-color: hsl(' + i + ',' + globalSatHSL + '%,' + display +'%);');
+		td.setAttribute('style', 'background-color: hsl(' + i + ',' + sat + '%,' + display +'%);');
 		td.addEventListener('click', function(){
-			handlePickerClick(this, pickerId, displayId);
+			handlePickerClick(this, pickerId, displayId, sat, lum);
 		});
 		row.appendChild(td);
 	}
 	table.appendChild(row);
 	$('#' + pickerId).empty();
 	$('#' + pickerId).append(table);
-	$('#' + displayId).attr('style', 'background-color: hsl(' + hue + ',' + globalSatHSL + '%,' + globalLumHSL +'%);');
+	$('#' + displayId).attr('style', 'background-color: hsl(' + hue + ',' + sat + '%,' + lum +'%);');
 }
 
 function initPreview(previewId){
 	var table = document.createElement("table");
 	var row = document.createElement("tr");
-	var prevIncrement;
-	if(firstHue > secondHue){
-		prevIncrement = ((360 - firstHue) + (secondHue))/360;
-	}
-	else if(secondHue > firstHue) prevIncrement = (secondHue - firstHue)/360;
-	else prevIncrement = 0;
+	var prevHueInc;
+	if(firstHue > secondHue) prevHueInc = ((360 - firstHue) + (secondHue))/360;
+	else prevHueInc = (secondHue - firstHue)/360;		
+	prevSatInc = (secondSatHSL - firstSatHSL)/360;
+	prevLumInc = (secondLumHSL - firstLumHSL)/360;
 	for(var i = 0; i < 360; i++){
 		var td = document.createElement("td");
-		td.setAttribute('index', i);
-		td.setAttribute('style', 'background-color: hsl(' + Math.ceil(firstHue+i*prevIncrement) + ',' + globalSatHSL + '%,' + globalLumHSL +'%);');
+		td.setAttribute('style', 'background-color: hsl(' + Math.ceil(firstHue+i*prevHueInc) + ',' + Math.ceil(firstSatHSL+i*prevSatInc) + '%,' + Math.ceil(firstLumHSL+i*prevLumInc) +'%);');
 		row.appendChild(td);
 	}
 	table.appendChild(row);
@@ -105,19 +125,19 @@ function initPreview(previewId){
 	$('#' + previewId).append(table);
 }
 
-function handlePickerClick(td, pickerId, displayId){
-	var newHue = parseInt(td.getAttribute('index'));
+function handlePickerClick(td, pickerId, displayId, sat, lum){
+	var newHue = parseInt(td.getAttribute('hue'));
 	var changedGrad = true;
 	if(pickerId == 'grad1_picker') firstHue = newHue;
 	else if(pickerId == 'grad2_picker') secondHue = newHue;
 	else{
 		chargedGrad = false;
-		complementHue = newHue;
+		compHue = newHue;
 	}
 	if(changedGrad){
 		initPreview('grad_preview');
 	}
-	initPicker(pickerId, displayId, newHue);
+	initPicker(pickerId, displayId, newHue, sat, lum);
 	var processing = Processing.getInstanceById('processing');
 	processing.setupChargeToColorMapping(false);
 }

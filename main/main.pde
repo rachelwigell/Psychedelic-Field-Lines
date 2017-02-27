@@ -7,14 +7,14 @@ int numMetaballs = 150;
 int[][] charges = new int[fieldX][fieldY];
 boolean[][] painted;
 String clickText = "click.";
-ArrayList globalFrontier;
+ArrayList frontier;
 HashMap colorMapping = new HashMap();
 
 void setup(){
   size(1200, 700, P2D);
   frameRate(50);
   colorMode(HSB, 360, 100, 100);
-  globalFrontier = new ArrayList();
+  frontier = new ArrayList();
   metaballs = new Metaball[numMetaballs];
   for(int i = 0; i < numMetaballs; i++){
     metaballs[i] = new Metaball();
@@ -41,25 +41,25 @@ void mouseClicked(){
 }
 
 public void queueClick(int x, int y){
-  globalFrontier.add(new Vector2D(x, y, charges[x][y]));
+  frontier.add(new Vector2D(x, y, charges[x][y]));
 }
 
 public void spread(){
-  for(int i = 0; i < min(ceil(.7 * globalFrontier.size()), 2000); i++){
-    Vector2D point = (Vector2D) globalFrontier.get(0);
+  for(int i = 0; i < min(ceil(.7 * frontier.size()), 2000); i++){
+    Vector2D point = (Vector2D) frontier.get(0);
     Color fieldChargeColor = (Color) colorMapping.get(point.fieldCharge);
-    globalFrontier.remove(0);
+    frontier.remove(0);
     if(charges[point.x][point.y] == point.fieldCharge && !painted[point.x][point.y]){
       set(point.x, point.y, color(fieldChargeColor.hue, fieldChargeColor.sat, fieldChargeColor.bri));
       painted[point.x][point.y] = true;
-      if(point.x-1 >= 0) globalFrontier.add(new Vector2D(point.x-1, point.y, point.fieldCharge));
-      if(point.x+1 < fieldX) globalFrontier.add(new Vector2D(point.x+1, point.y, point.fieldCharge));
-      if(point.y-1 >= 0) globalFrontier.add(new Vector2D(point.x, point.y-1, point.fieldCharge));
-      if(point.y+1 < fieldY) globalFrontier.add(new Vector2D(point.x, point.y+1, point.fieldCharge));
-      if(point.x-1 >= 0 && point.y-1 >= 0) globalFrontier.add(new Vector2D(point.x-1, point.y-1, point.fieldCharge));
-      if(point.x+1 < fieldX && point.y-1 >= 0) globalFrontier.add(new Vector2D(point.x+1, point.y-1, point.fieldCharge));
-      if(point.x-1 >= 0 && point.y+1 < fieldY) globalFrontier.add(new Vector2D(point.x-1, point.y+1, point.fieldCharge));
-      if(point.x+1 < fieldX && point.y+1 < fieldY) globalFrontier.add(new Vector2D(point.x+1, point.y+1, point.fieldCharge));
+      if(point.x-1 >= 0) frontier.add(new Vector2D(point.x-1, point.y, point.fieldCharge));
+      if(point.x+1 < fieldX) frontier.add(new Vector2D(point.x+1, point.y, point.fieldCharge));
+      if(point.y-1 >= 0) frontier.add(new Vector2D(point.x, point.y-1, point.fieldCharge));
+      if(point.y+1 < fieldY) frontier.add(new Vector2D(point.x, point.y+1, point.fieldCharge));
+      if(point.x-1 >= 0 && point.y-1 >= 0) frontier.add(new Vector2D(point.x-1, point.y-1, point.fieldCharge));
+      if(point.x+1 < fieldX && point.y-1 >= 0) frontier.add(new Vector2D(point.x+1, point.y-1, point.fieldCharge));
+      if(point.x-1 >= 0 && point.y+1 < fieldY) frontier.add(new Vector2D(point.x-1, point.y+1, point.fieldCharge));
+      if(point.x+1 < fieldX && point.y+1 < fieldY) frontier.add(new Vector2D(point.x+1, point.y+1, point.fieldCharge));
     }
   }
 }
@@ -101,26 +101,25 @@ public void updateChargeArray(){
 
 public void setupChargeToColorMapping(boolean init){
   initializeColors(init);
-  Color firstColor = new Color(firstHue, globalSatHSB, globalBriHSB);
-  Color secondColor = new Color(secondHue, globalSatHSB, globalBriHSB);
-  Color complementColor = new Color(firstColor, increment, 8, true);
-  complementColor.hue = complementHue;
+  Color firstColor = new Color(firstHue, firstSatHSB, firstBriHSB);
+  Color secondColor = new Color(secondHue, secondSatHSB, secondBriHSB);
+  Color complementColor = new Color(compHue, compSatHSB, compBriHSB);
   colorMapping.put(200, firstColor);
-  colorMapping.put(40, new Color(firstColor, increment, 1, true));
-  colorMapping.put(18, new Color(firstColor, increment, 2, true));
-  colorMapping.put(10, new Color(firstColor, increment, 3, true));
-  colorMapping.put(6, new Color(firstColor, increment, 4, true));
-  colorMapping.put(4, new Color(firstColor, increment, 5, true));
-  colorMapping.put(2, new Color(firstColor, increment, 6, true));
-  colorMapping.put(1, new Color(firstColor, increment, 7, true));
+  colorMapping.put(40, new Color(firstColor, hueInc, satInc, briInc, 1));
+  colorMapping.put(18, new Color(firstColor, hueInc, satInc, briInc, 2));
+  colorMapping.put(10, new Color(firstColor, hueInc, satInc, briInc, 3));
+  colorMapping.put(6, new Color(firstColor, hueInc, satInc, briInc, 4));
+  colorMapping.put(4, new Color(firstColor, hueInc, satInc, briInc, 5));
+  colorMapping.put(2, new Color(firstColor, hueInc, satInc, briInc, 6));
+  colorMapping.put(1, new Color(firstColor, hueInc, satInc, briInc, 7));
   colorMapping.put(0, complementColor);
-  colorMapping.put(-1, new Color(firstColor, increment, 9, true));
-  colorMapping.put(-2, new Color(firstColor, increment, 10, true));
-  colorMapping.put(-4, new Color(firstColor, increment, 11, true));
-  colorMapping.put(-6, new Color(firstColor, increment, 12, true));
-  colorMapping.put(-10, new Color(firstColor, increment, 13, true));
-  colorMapping.put(-18, new Color(firstColor, increment, 14, true));
-  colorMapping.put(-40, new Color(firstColor, increment, 15, true));
+  colorMapping.put(-1, new Color(firstColor, hueInc, satInc, briInc, 9));
+  colorMapping.put(-2, new Color(firstColor, hueInc, satInc, briInc, 10));
+  colorMapping.put(-4, new Color(firstColor, hueInc, satInc, briInc, 11));
+  colorMapping.put(-6, new Color(firstColor, hueInc, satInc, briInc, 12));
+  colorMapping.put(-10, new Color(firstColor, hueInc, satInc, briInc, 13));
+  colorMapping.put(-18, new Color(firstColor, hueInc, satInc, briInc, 14));
+  colorMapping.put(-40, new Color(firstColor, hueInc, satInc, briInc, 15));
   colorMapping.put(-200, secondColor);
   painted = new boolean[fieldX][fieldY];
 }
