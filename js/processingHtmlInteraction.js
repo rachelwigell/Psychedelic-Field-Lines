@@ -56,11 +56,17 @@ function initializeColors(init){
 		firstHue = getRandomInt(0, 360);
 		secondHue = makeValidHue(firstHue + getRandomInt(120, 160));
 		firstSatHSL = getRandomInt(70, 100);
+		$('#grad1_sat_slider').foundation('slider', 'set_value', firstSatHSL);
 		firstLumHSL = getRandomInt(40, 60);
+		$('#grad1_lum_slider').foundation('slider', 'set_value', firstLumHSL);
 		secondSatHSL = firstSatHSL;
+		$('#grad2_sat_slider').foundation('slider', 'set_value', secondSatHSL);
 		secondLumHSL = firstLumHSL;
+		$('#grad2_lum_slider').foundation('slider', 'set_value', secondLumHSL);
 		compSatHSL = firstSatHSL;
+		$('#comp_sat_slider').foundation('slider', 'set_value', compSatHSL);
 		compLumHSL = firstLumHSL;
+		$('#comp_lum_slider').foundation('slider', 'set_value', compLumHSL);
 		var HSB = SLtoSB(firstSatHSL, firstLumHSL);
 		firstSatHSB = HSB[0];
 		firstBriHSB = HSB[1];
@@ -69,12 +75,12 @@ function initializeColors(init){
 		compSatHSB = firstSatHSB;
 		compBriHSB = firstBriHSB;
 	}
-	if(firstHue > secondHue) hueInc = Math.ceil(((360 - firstHue) + (secondHue))/15);
-	else hueInc = Math.ceil((secondHue - firstHue)/15);
-	satInc = Math.ceil((secondSatHSB - firstSatHSB)/15);
-	briInc = Math.ceil((secondBriHSB - firstBriHSB)/15);
+	if(firstHue > secondHue) hueInc = ((360 - firstHue) + (secondHue))/15;
+	else hueInc = (secondHue - firstHue)/15;
+	satInc = (secondSatHSB - firstSatHSB)/15;
+	briInc = (secondBriHSB - firstBriHSB)/15;
 	if(init){
-		compHue = makeValidHue((firstHue + hueInc * 8) + getRandomInt(160, 200));
+		compHue = makeValidHue(Math.ceil((firstHue + hueInc * 8) + getRandomInt(160, 200)));
 		compSatHSL = Math.ceil((firstSatHSL + secondSatHSL)/2);
 		compLumHSL = Math.ceil((firstLumHSL + secondLumHSL)/2);
 		var compHSB = SLtoSB(compSatHSL, compLumHSL);
@@ -117,7 +123,8 @@ function initPreview(previewId){
 	prevLumInc = (secondLumHSL - firstLumHSL)/360;
 	for(var i = 0; i < 360; i++){
 		var td = document.createElement("td");
-		td.setAttribute('style', 'background-color: hsl(' + Math.ceil(firstHue+i*prevHueInc) + ',' + Math.ceil(firstSatHSL+i*prevSatInc) + '%,' + Math.ceil(firstLumHSL+i*prevLumInc) +'%);');
+		if(i > 175 && i < 185) td.setAttribute('style', 'background-color: hsl(' + compHue + ',' + compSatHSL + '%,' + compLumHSL +'%); width:2px');
+		else td.setAttribute('style', 'background-color: hsl(' + Math.ceil(firstHue+i*prevHueInc) + ',' + Math.ceil(firstSatHSL+i*prevSatInc) + '%,' + Math.ceil(firstLumHSL+i*prevLumInc) +'%); width:2px');
 		row.appendChild(td);
 	}
 	table.appendChild(row);
@@ -142,3 +149,60 @@ function handlePickerClick(td, pickerId, displayId, sat, lum){
 	processing.setupChargeToColorMapping(false);
 }
 
+$('.range-slider').on('change.fndtn.slider', function(){
+	handleSliderChange(this.getAttribute('id'), this.getAttribute('data-slider'));
+})
+
+function handleSliderChange(whichSlider, newVal){
+	newVal = parseInt(newVal);
+	switch(whichSlider){
+		case 'grad1_sat_slider':
+			firstSatHSL = newVal;
+			var HSB = SLtoSB(firstSatHSL, firstLumHSL);
+			firstSatHSB = HSB[0];
+			firstBriHSB = HSB[1];
+			var processing = Processing.getInstanceById('processing');
+			processing.setupChargeToColorMapping(false);
+			break;
+		case 'grad1_lum_slider':
+			firstLumHSL = Math.max(newVal, 1);
+			var HSB = SLtoSB(firstSatHSL, firstLumHSL);
+			firstSatHSB = HSB[0];
+			firstBriHSB = HSB[1];
+			var processing = Processing.getInstanceById('processing');
+			processing.setupChargeToColorMapping(false);
+			break;
+		case 'grad2_sat_slider':
+			secondSatHSL = newVal;
+			var HSB = SLtoSB(secondSatHSL, secondLumHSL);
+			secondSatHSB = HSB[0];
+			secondBriHSB = HSB[1];
+		  	var processing = Processing.getInstanceById('processing');
+			processing.setupChargeToColorMapping(false);
+			break;
+		case 'grad2_lum_slider':
+			secondLumHSL = Math.max(newVal, 1);
+			var HSB = SLtoSB(secondSatHSL, secondLumHSL);
+			secondSatHSB = HSB[0];
+			secondBriHSB = HSB[1];
+		  	var processing = Processing.getInstanceById('processing');
+			processing.setupChargeToColorMapping(false);
+			break;
+		case 'comp_sat_slider':
+			compSatHSL = newVal;
+			var HSB = SLtoSB(compSatHSL, compLumHSL);
+			compSatHSB = HSB[0];
+			compBriHSB = HSB[1];
+		  	var processing = Processing.getInstanceById('processing');
+			processing.setupChargeToColorMapping(false);
+			break;
+		case 'comp_lum_slider':
+			compLumHSL = Math.max(newVal, 1);
+			var HSB = SLtoSB(compSatHSL, compLumHSL);
+			compSatHSB = HSB[0];
+			compBriHSB = HSB[1];
+			var processing = Processing.getInstanceById('processing');
+			processing.setupChargeToColorMapping(false);
+			break;
+	}
+}

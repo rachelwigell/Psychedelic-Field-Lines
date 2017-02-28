@@ -8,37 +8,9 @@
 		p {
 			font-size: small
 		}
-		.switch-on {
-			position: absolute;
-			left: -95%;
-			top: 25%;
-			color: white;
-			font-weight: bold;
-			font-size: 12px;
+		.range-slider{
+			margin: 0;
 		}
-		.switch-off {
-			position: absolute;
-			left: -20%;
-			top: 25%;
-			color: white;
-			font-weight: bold;
-			font-size: 12px;
-		}
-		.switch.large label {
-			width: 80%;
-		}
-		.switch label {
-			background: #2BA6CB;
-		}
-		.switch.large label:after {
-			height: 80%;
-			left: 2.5%;
-			top: 10%;
-			width: 50%;
-		}
-		.switch.large input:checked + label:after {
-    		left: 47.5%;
-    	}
     	td{
     		width: 1px;
     	}
@@ -68,18 +40,21 @@
 		</canvas><br><br>
 
 		<div class="row">
+			<div class="small-12 columns" id="grad_preview"></div>
+		</div>
+		<div class="row">
 			<div class="small-3 columns" id="grad1_display">First gradient color</div>
 			<div class="small-5 columns" id="grad1_picker"></div>
-			<div class="small-2 columns" id="grad1_sat_slider">
-				<div class="range-slider round" id="grad1_sat_percentage" align="left" data-slider=50>
+			<div class="small-2 columns">
+				<div class="range-slider round" id="grad1_sat_slider" align="left" data-slider=50>
 					  <span class="range-slider-handle" role="slider" tabindex="0">
 					  </span>
 					  <span class="range-slider-active-segment"></span>
 					  <input type="hidden">
 				</div>
 			</div>
-			<div class="small-2 columns" id="grad1_lum_slider">
-				<div class="range-slider round" id="grad1_lum_percentage" align="left" data-slider=50>
+			<div class="small-2 columns">
+				<div class="range-slider round" id="grad1_lum_slider" align="left" data-slider=50>
 					  <span class="range-slider-handle" role="slider" tabindex="0">
 					  </span>
 					  <span class="range-slider-active-segment"></span>
@@ -90,16 +65,16 @@
 		<div class="row">
 			<div class="small-3 columns" id="grad2_display" style="background-color:rgb(200,100,50)">Second gradient color</div>
 			<div class="small-5 columns" id="grad2_picker"></div>
-			<div class="small-2 columns" id="grad2_sat_slider">
-				<div class="range-slider round" id="grad2_sat_percentage" align="left" data-slider=50>
+			<div class="small-2 columns">
+				<div class="range-slider round" id="grad2_sat_slider" align="left" data-slider=50>
 					  <span class="range-slider-handle" role="slider" tabindex="0">
 					  </span>
 					  <span class="range-slider-active-segment"></span>
 					  <input type="hidden">
 				</div>
 			</div>
-			<div class="small-2 columns" id="grad2_lum_slider">
-				<div class="range-slider round" id="grad2_lum_percentage" align="left" data-slider=50>
+			<div class="small-2 columns">
+				<div class="range-slider round" id="grad2_lum_slider" align="left" data-slider=50>
 					  <span class="range-slider-handle" role="slider" tabindex="0">
 					  </span>
 					  <span class="range-slider-active-segment"></span>
@@ -111,34 +86,22 @@
 		<div class="row">
 			<div class="small-3 columns" id="comp_display">Complement color</div>
 			<div class="small-5 columns" id="comp_picker"></div>
-			<div class="small-2 columns" id="comp_sat_slider">
-				<div class="range-slider round" id="comp_sat_percentage" align="left" data-slider=50>
+			<div class="small-2 columns">
+				<div class="range-slider round"  id="comp_sat_slider" align="left" data-slider=50>
 					  <span class="range-slider-handle" role="slider" tabindex="0">
 					  </span>
 					  <span class="range-slider-active-segment"></span>
 					  <input type="hidden">
 				</div>
 			</div>
-			<div class="small-2 columns" id="comp_lum_slider">
-				<div class="range-slider round" id="comp_lum_percentage" align="left" data-slider=50>
+			<div class="small-2 columns">
+				<div class="range-slider round" id="comp_lum_slider" align="left" data-slider=50>
 					  <span class="range-slider-handle" role="slider" tabindex="0">
 					  </span>
 					  <span class="range-slider-active-segment"></span>
 					  <input type="hidden">
 				</div>
 			</div>
-			<!-- <div class="small-4 columns">
-				<div class="switch round large">
-					<input id="comp_inclusion" type="checkbox">
-					<label for="comp_inclusion">
-						<span class="switch-off">OFF</span>
-						<span class="switch-on">ON</span>
-					</label>
-				</div>
-			</div> -->
-		</div>
-		<div class="row">
-			<div class="small-12 columns" id="grad_preview"></div>
 		</div>
 
 		<div class="row">

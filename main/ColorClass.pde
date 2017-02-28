@@ -10,8 +10,8 @@ public class Color {
   }
   
   public Color(Color base, int hueInc, int satInc, int briInc, int multiplier){
-    this.hue = makeValidHue(base.hue + multiplier * hueInc);
-    this.sat = makeValidHue(base.sat + multiplier * satInc);
-    this.bri = makeValidHue(base.bri + multiplier * briInc);
+    this.hue = makeValidHue((int) (base.hue + multiplier * hueInc));
+    this.sat = makeValidHue((int) (base.sat + multiplier * satInc));
+    this.bri = makeValidHue((int) (base.bri + multiplier * briInc));
   }
 }
